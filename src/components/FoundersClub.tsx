@@ -203,27 +203,27 @@ const FoundersClub = forwardRef<HTMLElement>((props, ref) => {
   return (
     <section ref={ref} id="founders-club" className="py-32 bg-background section-hidden">
       <div className="container mx-auto px-6">
-        {/* Join Elite Network Button - Top Right */}
-        <div className="flex justify-end mb-8">
-          <Button 
-            className="bg-gradient-to-r from-primary to-neon-cyan text-primary-foreground hover:from-primary/90 hover:to-neon-cyan/90 px-8 py-4 rounded-lg font-medium transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl text-lg"
-            onClick={() => setIsFormOpen(true)}
-          >
-            Join Elite Network →
-          </Button>
-        </div>
-
-        <div className="text-center mb-20">
+        <div className="text-center mb-10">
           <h2 className="text-5xl md:text-6xl font-bold mb-6">
             <span className="gradient-text">The Founders Club</span>
           </h2>
           <p className="text-xl md:text-2xl text-foreground/70 mb-4 font-mono">
             A "YPO for Startups" 🚀
           </p>
-          <p className="text-lg text-foreground/60 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg text-foreground/60 max-w-3xl mx-auto leading-relaxed mb-8">
             Elite community-driven platform for next-gen entrepreneurs. Access vetted networks, 
             AI-powered insights, and exclusive investor connections.
           </p>
+          
+          {/* Join Elite Network Button - Centered under heading */}
+          <div className="flex justify-center mb-10">
+            <Button 
+              className="bg-gradient-to-r from-primary to-neon-cyan text-primary-foreground hover:from-primary/90 hover:to-neon-cyan/90 px-8 py-4 rounded-lg font-medium transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl text-lg"
+              onClick={() => setIsFormOpen(true)}
+            >
+              Join Elite Network →
+            </Button>
+          </div>
         </div>
 
         {/* Features */}

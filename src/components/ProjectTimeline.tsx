@@ -70,6 +70,55 @@ const projects: Project[] = [
     team: 12,
     progress: 30,
     tags: ["Collaboration", "Remote Work", "Project Management", "Communication"]
+  },
+  {
+    id: 10,
+    title: "Analyse Agent",
+    description: "Revolutionary neural networks that understand context, predict outcomes, and automate complex decision-making processes with unprecedented accuracy.",
+    status: "launched",
+    date: "2025-04-15",
+    timeline: "Q2 2025",
+    team: 15,
+    progress: 100,
+    tags: ["AI", "Neural Networks", "Decision Making", "Analytics"],
+    metrics: {
+      users: "10K+",
+      revenue: "$2.1M",
+      growth: "+180%"
+    }
+  },
+  {
+    id: 11,
+    title: "Voice Agent",
+    description: "Intelligent voice processing system that handles customer interactions, automates call centers, and provides real-time sentiment analysis.",
+    status: "testing",
+    date: "2025-05-20",
+    timeline: "Q3 2025",
+    team: 12,
+    progress: 85,
+    tags: ["Voice AI", "Customer Service", "Sentiment Analysis", "Automation"]
+  },
+  {
+    id: 12,
+    title: "Validation Agent",
+    description: "Advanced validation system that verifies data integrity, ensures compliance, and automates quality assurance processes.",
+    status: "development",
+    date: "2025-06-10",
+    timeline: "Q3 2025",
+    team: 8,
+    progress: 70,
+    tags: ["Validation", "Compliance", "QA", "Data Integrity"]
+  },
+  {
+    id: 13,
+    title: "InnovateX",
+    description: "Next-generation innovation platform that accelerates product development through AI-driven insights and automated prototyping.",
+    status: "planning",
+    date: "2025-07-01",
+    timeline: "Q4 2025",
+    team: 20,
+    progress: 15,
+    tags: ["Innovation", "AI", "Prototyping", "Product Development"]
   }
 ];
 

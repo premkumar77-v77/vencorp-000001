@@ -1,10 +1,12 @@
 import { forwardRef, useState, useEffect } from "react";
-import { Brain, FileText, BarChart, Zap, Target, Workflow, ChevronRight, Bot, Cpu, Network, Database, MessageSquare, TrendingUp, Shield, ArrowRight, Clock, Calendar } from "lucide-react";
+import { Brain, FileText, BarChart, Zap, Target, Workflow, ChevronRight, Bot, Cpu, Network, Database, MessageSquare, TrendingUp, Shield, ArrowRight, Clock, Calendar, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const AIAutomation = forwardRef<HTMLElement>((props, ref) => {
   const [selectedProduct, setSelectedProduct] = useState(0);
   const [currentYear, setCurrentYear] = useState(2024);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedAgentDetails, setSelectedAgentDetails] = useState(null);
 
   const aiProducts = [
     {
@@ -14,8 +16,8 @@ const AIAutomation = forwardRef<HTMLElement>((props, ref) => {
       category: "Neural Processing",
       year: "2024",
       quarter: "Q1",
-      description: "Revolutionary neural networks that understand context, predict outcomes, and automate complex decision-making processes with unprecedented accuracy.",
-      features: ["Deep Learning", "Natural Language Processing", "Pattern Recognition", "Predictive Modeling"],
+      description: "Empowering businesses with advanced neural networks, the Analyse Agent deciphers complex data, predicts market trends, and automates strategic decisions with unparalleled precision and efficiency.",
+      features: ["Advanced Deep Learning Algorithms", "Contextual Natural Language Processing", "Real-time Pattern Recognition", "Proactive Predictive Analytics"],
       metrics: { accuracy: "98.5%", speed: "< 100ms", efficiency: "300x faster" },
       color: "from-primary to-neon-cyan",
       bgColor: "bg-gradient-to-br from-primary/10 to-neon-cyan/10",
@@ -29,8 +31,8 @@ const AIAutomation = forwardRef<HTMLElement>((props, ref) => {
       category: "Workflow Automation",
       year: "2024",
       quarter: "Q2",
-      description: "Intelligent automation that handles repetitive tasks, optimizes workflows, and scales operations seamlessly across your entire organization.",
-      features: ["Process Mining", "Task Automation", "Workflow Optimization", "Smart Scheduling"],
+      description: "Streamline operations with AI-driven workflow automation that eliminates manual tasks, optimizes process efficiency, and scales seamlessly with your business growth.",
+      features: ["AI-Powered Process Mining", "Cross-System Task Automation", "Dynamic Workflow Optimization", "Predictive Scheduling"],
       metrics: { productivity: "5x increase", accuracy: "99.2%", savings: "70% cost" },
       color: "from-neon-cyan to-neon-pink",
       bgColor: "bg-gradient-to-br from-neon-cyan/10 to-neon-pink/10",
@@ -44,8 +46,8 @@ const AIAutomation = forwardRef<HTMLElement>((props, ref) => {
       category: "Intelligent Communication",
       year: "2024",
       quarter: "Q3",
-      description: "Next-generation conversational AI that understands context, emotion, and intent for natural, human-like interactions across all channels.",
-      features: ["Sentiment Analysis", "Multi-language Support", "Context Awareness", "Emotional Intelligence"],
+      description: "Elevate customer interactions with intelligent conversational AI that understands context, emotion, and intent—delivering natural, human-like experiences across all communication channels.",
+      features: ["Advanced Sentiment Analysis", "Real-Time Multi-Language Support", "Contextual Intent Recognition", "Emotion-Adjusted Responses"],
       metrics: { satisfaction: "96%", response: "< 2 seconds", languages: "150+" },
       color: "from-neon-pink to-primary",
       bgColor: "bg-gradient-to-br from-neon-pink/10 to-primary/10",
@@ -60,13 +62,6 @@ const AIAutomation = forwardRef<HTMLElement>((props, ref) => {
     }, 4000);
     return () => clearInterval(timer);
   }, [aiProducts.length]);
-
-  const platformStats = [
-    { value: "50M+", label: "AI Operations Daily", icon: <Cpu className="w-5 h-5" /> },
-    { value: "99.99%", label: "Uptime Guarantee", icon: <Network className="w-5 h-5" /> },
-    { value: "< 50ms", label: "Average Response", icon: <Zap className="w-5 h-5" /> },
-    { value: "24/7", label: "AI Monitoring", icon: <Database className="w-5 h-5" /> }
-  ];
 
   return (
     <section ref={ref} id="automation" className="py-32 bg-background section-hidden">
@@ -95,25 +90,6 @@ const AIAutomation = forwardRef<HTMLElement>((props, ref) => {
               View Documentation
             </Button>
           </div>
-        </div>
-
-        {/* Platform Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
-          {platformStats.map((stat, index) => (
-            <div key={index} className="bento-card text-center group hover-lift">
-              <div className="flex justify-center mb-3">
-                <div className="p-3 rounded-xl bg-gradient-to-br from-primary/20 to-neon-cyan/20 text-primary group-hover:scale-110 transition-transform">
-                  {stat.icon}
-                </div>
-              </div>
-              <div className="text-2xl md:text-3xl font-bold gradient-text font-mono mb-1">
-                {stat.value}
-              </div>
-              <div className="text-sm text-foreground/60 font-medium">
-                {stat.label}
-              </div>
-            </div>
-          ))}
         </div>
 
         {/* AI Products Timeline */}
@@ -248,6 +224,11 @@ const AIAutomation = forwardRef<HTMLElement>((props, ref) => {
                           <Button 
                             size="sm" 
                             className="btn-ghost-futuristic group w-full"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setSelectedAgentDetails(product);
+                              setShowModal(true);
+                            }}
                           >
                             <span>Explore Details</span>
                             <ChevronRight className="ml-1 w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -309,6 +290,97 @@ const AIAutomation = forwardRef<HTMLElement>((props, ref) => {
           </div>
         </div>
       </div>
+
+      {/* Agent Details Modal */}
+      {showModal && selectedAgentDetails && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md overflow-hidden">
+          <div className="relative w-full max-w-4xl mx-4 max-h-[85vh] overflow-y-auto rounded-2xl bg-background border border-foreground/10 p-8 shadow-2xl">
+            {/* Close Button */}
+            <button 
+              className="absolute top-4 right-4 p-2 rounded-full bg-foreground/10 hover:bg-foreground/20 transition-colors z-10"
+              onClick={() => setShowModal(false)}
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center gap-6">
+              <div className={`p-5 rounded-xl bg-gradient-to-br ${selectedAgentDetails.color} text-white`}>
+                {selectedAgentDetails.icon}
+              </div>
+              <div className="flex-1">
+                <h2 className="text-3xl font-bold gradient-text mb-1">{selectedAgentDetails.title}</h2>
+                <p className="text-foreground/60">{selectedAgentDetails.category}</p>
+              </div>
+              <div className="sm:ml-auto text-left sm:text-right mt-2 sm:mt-0">
+                <div className="text-lg font-mono text-primary font-bold mb-1">
+                  {selectedAgentDetails.year} {selectedAgentDetails.quarter}
+                </div>
+                <span className={`inline-block px-3 py-1 rounded-full text-sm font-mono ${
+                  selectedAgentDetails.status === 'Active' 
+                    ? 'bg-green-500/20 text-green-400 border border-green-500/30'
+                    : selectedAgentDetails.status === 'Beta'
+                    ? 'bg-orange-500/20 text-orange-400 border border-orange-500/30'
+                    : 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
+                }`}>
+                  {selectedAgentDetails.status}
+                </span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+              <div className="bg-foreground/5 p-6 rounded-xl border border-foreground/10">
+                <h3 className="text-xl font-bold mb-4 gradient-text">Overview</h3>
+                <p className="text-foreground/80 leading-relaxed mb-6">
+                  {selectedAgentDetails.description}
+                </p>
+
+                <h3 className="text-xl font-bold mb-4 gradient-text">Key Features</h3>
+                <ul className="space-y-3">
+                  {selectedAgentDetails.features.map((feature, idx) => (
+                    <li key={idx} className="flex items-start gap-3">
+                      <div className="mt-1 text-primary">
+                        <ChevronRight className="w-4 h-4" />
+                      </div>
+                      <span className="text-foreground/80">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="bg-foreground/5 p-6 rounded-xl border border-foreground/10">
+                <h3 className="text-xl font-bold mb-4 gradient-text">Performance Metrics</h3>
+                <div className="grid grid-cols-1 gap-4 mb-6">
+                  {Object.entries(selectedAgentDetails.metrics).map(([key, value]) => (
+                    <div key={key} className="flex items-center justify-between p-4 rounded-lg bg-background border border-foreground/10">
+                      <span className="text-foreground/70 capitalize">{key}</span>
+                      <span className="text-xl font-bold text-primary">{value as React.ReactNode}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <h3 className="text-xl font-bold mb-4 gradient-text">Development Timeline</h3>
+                <div className="p-4 rounded-lg bg-background border border-foreground/10 mb-4">
+                  <div className="flex justify-between mb-2">
+                    <span className="text-foreground/70">Release Date</span>
+                    <span className="font-bold">{selectedAgentDetails.year} {selectedAgentDetails.quarter}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-foreground/70">Milestone</span>
+                    <span className="font-bold">{selectedAgentDetails.milestone}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex justify-center mt-6">
+              <Button className="btn-futuristic group px-8" onClick={() => setShowModal(false)}>
+                <span>Close Details</span>
+                <X className="ml-2 w-4 h-4" />
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 });

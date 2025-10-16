@@ -117,6 +117,7 @@ const Ecosystem = forwardRef<HTMLElement>((props, ref) => {
         "Get ongoing support and maintenance"
       ],
       productLinks: [
+        { label: "Launch Stacia Corp", url: "https://staciacorp.com/", type: "primary" },
         { label: "Service Portfolio", url: "https://stacia.vencorp.com/services", type: "secondary" },
         { label: "Case Studies", url: "https://stacia.vencorp.com/cases", type: "video" }
       ],
@@ -463,34 +464,6 @@ const DetailedAppView: React.FC<DetailedAppViewProps> = ({ app, onBack }) => {
   // Default view for other products (not Stello)
   return (
     <div className="animate-fade-in-up">
-      {/* Launch PragatiAI Button - Top Right (only for PragatiAI) */}
-      {app.title === 'PragatiAI' && (
-        <div className="flex justify-end mb-4">
-          <Button 
-            onClick={() => window.open('https://pragati.vencorp.com', '_blank')}
-            className="bg-gradient-to-r from-primary to-neon-cyan text-primary-foreground hover:from-primary/90 hover:to-neon-cyan/90 px-6 py-3 rounded-lg font-medium transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl"
-          >
-            <ExternalLink className="w-4 h-4" />
-            Launch PragatiAI
-            <ExternalLink className="w-4 h-4" />
-          </Button>
-        </div>
-      )}
-
-      {/* Launch Stacia Corp Button - Top Right (only for Stacia Corp) */}
-      {app.title === 'Stacia Corp' && (
-        <div className="flex justify-end mb-4">
-          <Button 
-            onClick={() => window.open('https://staciacorp.com', '_blank')}
-            className="bg-gradient-to-r from-primary to-neon-cyan text-primary-foreground hover:from-primary/90 hover:to-neon-cyan/90 px-6 py-3 rounded-lg font-medium transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl"
-          >
-            <ExternalLink className="w-4 h-4" />
-            Launch Stacia Corp
-            <ExternalLink className="w-4 h-4" />
-          </Button>
-        </div>
-      )}
-
       {/* Back Button */}
       <Button 
         onClick={onBack}
@@ -510,10 +483,38 @@ const DetailedAppView: React.FC<DetailedAppViewProps> = ({ app, onBack }) => {
           </div>
         </div>
         <h1 className="text-5xl md:text-6xl font-bold gradient-text mb-4">{app.title}</h1>
-        <p className="text-xl text-foreground/70 max-w-3xl mx-auto leading-relaxed">
+        <p className="text-xl text-foreground/70 max-w-3xl mx-auto leading-relaxed mb-8">
           {app.detailedDescription}
         </p>
+
+        {/* Launch Stacia Corp Button - Under heading (only for Stacia Corp) */}
+        {app.title === 'Stacia Corp' && (
+          <div className="flex justify-center mb-8">
+            <Button 
+              onClick={() => window.open('https://staciacorp.com/', '_blank')}
+              className="bg-gradient-to-r from-primary to-neon-cyan text-primary-foreground hover:from-primary/90 hover:to-neon-cyan/90 px-6 py-3 rounded-lg font-medium transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl"
+            >
+              <ExternalLink className="w-4 h-4" />
+              Launch Stacia Corp
+              <ExternalLink className="w-4 h-4" />
+            </Button>
+          </div>
+        )}
       </div>
+
+      {/* Launch PragatiAI Button - Above 85% Success Rate Container (only for PragatiAI) */}
+      {app.title === 'PragatiAI' && (
+        <div className="flex justify-center mb-8">
+          <Button 
+            onClick={() => window.open('https://pragati.vencorp.com', '_blank')}
+            className="bg-gradient-to-r from-primary to-neon-cyan text-primary-foreground hover:from-primary/90 hover:to-neon-cyan/90 px-6 py-3 rounded-lg font-medium transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl"
+          >
+            <ExternalLink className="w-4 h-4" />
+            Launch PragatiAI
+            <ExternalLink className="w-4 h-4" />
+          </Button>
+        </div>
+      )}
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
@@ -591,7 +592,9 @@ const DetailedAppView: React.FC<DetailedAppViewProps> = ({ app, onBack }) => {
         </CardHeader>
         <CardContent>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            {app.productLinks.map((link, index) => (
+            {app.productLinks
+              .filter(link => !(app.title === 'Stacia Corp' && link.label === 'Launch Stacia Corp'))
+              .map((link, index) => (
               <Button 
                 key={index}
                 className={`group ${getLinkStyle(link.type)}`}
